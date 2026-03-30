@@ -89,4 +89,3 @@ mvn javafx:run
 **Via IntelliJ:**
 1. Navegue até `src/main/java/app/Launcher.java`.
 2. Clique no ícone de **Play** verde ao lado da linha `public class Launcher`.
-```
