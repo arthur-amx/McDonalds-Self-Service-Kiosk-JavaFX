@@ -19,6 +19,8 @@ O objetivo é demonstrar a arquitetura de uma aplicação comercial completa, in
   <img src="./screens/Senha.png" alt="Pagamento" width="30%">
 </div>
 
+---
+
 ## **2. Pilha de Tecnologias (Core Stack)**
 
 A arquitetura do sistema foi modernizada utilizando as seguintes tecnologias:
@@ -39,7 +41,47 @@ A arquitetura do sistema foi modernizada utilizando as seguintes tecnologias:
 
 ---
 
-## **3. Estrutura de Diretórios (System Architecture)**
+## **3. Arquitetura do Sistema (System Architecture)**
+
+O sistema segue o padrão **MVC (Model-View-Controller)**, onde as telas FXML compõem a camada de View, os Controllers orquestram a lógica e as integrações externas são isoladas como serviços.
+
+```mermaid
+graph TD
+    subgraph UI ["🖥️ Camada de View (FXML / JavaFX)"]
+        T["Tela Inicial"]
+        MU["Menu do Cliente"]
+        MA["Painel Admin"]
+        PG["Checkout / Pagamento"]
+    end
+
+    subgraph CTRL ["⚙️ Camada de Controle (Controllers)"]
+        AC["AppController\n(Navegação & Sessão)"]
+        OC["OrderController\n(Gerência de Pedidos)"]
+        PC["PaymentController\n(Fluxo de Pagamento)"]
+        ADC["AdminController\n(Gestão do Sistema)"]
+    end
+
+    subgraph SVC ["🔌 Integrações Externas"]
+        PS["PagSeguro API\n(Processamento de Pagamento)"]
+        JM["JavaMail\n(Confirmação por E-mail)"]
+        FB["RestFB\n(Autenticação Facebook)"]
+    end
+
+    T --> AC
+    AC -->|"Cliente"| MU
+    AC -->|"Admin"| MA
+    AC --> FB
+    MU --> OC
+    OC --> PG
+    PG --> PC
+    PC --> PS
+    PC --> JM
+    MA --> ADC
+```
+
+---
+
+## **4. Estrutura de Diretórios (Project Structure)**
 
 ```text
 McDonaldTablet/
@@ -52,12 +94,14 @@ McDonaldTablet/
 │   │       ├── viewFXML/        # Telas (Interface XML)
 │   │       ├── imgs/            # Ícones e Imagens
 │   │       └── styles/          # Estilização CSS
-├── Telas/                       # Screenshots da Documentação
+├── screens/                     # Screenshots da Documentação
 ├── pom.xml                      # Gerenciador de Dependências Maven
 └── README.md
 ```
 
-## **4. Execução Local (Local Deployment)**
+---
+
+## **5. Execução Local (Local Deployment)**
 
 Para clonar e rodar este projeto em seu ambiente local, siga os passos abaixo.
 
